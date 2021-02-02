@@ -6,6 +6,10 @@ public class Calculator {
         return firstMultiplier * secondMultiplier;
     }
 
+    Double makeAddition(double firstTerm, double secondTerm) {
+        return firstTerm + secondTerm;
+    }
+
     public static void main( String[] args ) {
 
     }
