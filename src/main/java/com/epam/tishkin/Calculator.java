@@ -11,7 +11,11 @@ public class Calculator {
     }
 
     Double makeSubtraction(double firstSubtrahend, double secondSubtrahend) {
-        return firstSubtrahend / secondSubtrahend;
+        return firstSubtrahend - secondSubtrahend;
+    }
+
+    Double makeDevision(double divisible, double divider) {
+        return divisible / divider;
     }
 
     public static void main( String[] args ) {

@@ -38,11 +38,19 @@ public class testCalculator {
 
     @Test
     public void testSubtraction() {
-        double actualSubstractionResult = calculator.makeSubtraction(firstNumberForTest, secondNumberForTest);
-        Assertions.assertEquals(0.5, actualSubstractionResult);
-        actualSubstractionResult = calculator.makeSubtraction(-firstNumberForTest, secondNumberForTest);
-        Assertions.assertEquals(-0.5, actualSubstractionResult);
-        actualSubstractionResult = calculator.makeSubtraction(0, firstNumberForTest);
-        Assertions.assertEquals(0, actualSubstractionResult);
+        double actualSubstractionResult = calculator.makeSubtraction(-firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(-12, actualSubstractionResult);
+        actualSubstractionResult = calculator.makeSubtraction(firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(-4, actualSubstractionResult);
+    }
+
+    @Test
+    public void testDevision() {
+        double actualDevisionResult = calculator.makeDevision(-firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(-0.5, actualDevisionResult);
+        actualDevisionResult = calculator.makeDevision(firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(0.5, actualDevisionResult);
+        actualDevisionResult = calculator.makeDevision(0, firstNumberForTest);
+        Assertions.assertEquals(0, actualDevisionResult);
     }
 }
