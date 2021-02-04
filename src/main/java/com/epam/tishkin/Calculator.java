@@ -10,7 +10,10 @@ public class Calculator {
         return firstTerm + secondTerm;
     }
 
-    public static void main( String[] args ) {
+    Double makeSubtraction(double firstSubtrahend, double secondSubtrahend) {
+        return firstSubtrahend / secondSubtrahend;
+    }
 
+    public static void main( String[] args ) {
     }
 }

@@ -6,31 +6,43 @@ import org.junit.jupiter.api.Assertions;
 
 public class testCalculator {
     private static Calculator calculator;
-    private static double numberForTest;
+    private static double firstNumberForTest;
+    private static double secondNumberForTest;
 
     @BeforeAll
     static void initAll() {
         calculator = new Calculator();
-        numberForTest = 5.6;
+        firstNumberForTest = 4;
+        secondNumberForTest = 8;
     }
 
     @Test
     public void testMultiplication() {
-        double actualMultiplicationResult = calculator.makeMultiplication(8, numberForTest);
-        Assertions.assertEquals(44.8, actualMultiplicationResult);
-        actualMultiplicationResult = calculator.makeMultiplication(8.35, numberForTest);
-        Assertions.assertEquals(46.76, actualMultiplicationResult);
-        actualMultiplicationResult = calculator.makeMultiplication(0, numberForTest);
+        double actualMultiplicationResult = calculator.makeMultiplication(-firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(-32, actualMultiplicationResult);
+        actualMultiplicationResult = calculator.makeMultiplication(firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(32, actualMultiplicationResult);
+        actualMultiplicationResult = calculator.makeMultiplication(0, firstNumberForTest);
         Assertions.assertEquals(0, actualMultiplicationResult);
     }
 
     @Test
     public void testAddition() {
-        double actualMultiplicationResult = calculator.makeAddition(6.4, numberForTest);
+        double actualMultiplicationResult = calculator.makeAddition(-firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(4, actualMultiplicationResult);
+        actualMultiplicationResult = calculator.makeAddition(firstNumberForTest, secondNumberForTest);
         Assertions.assertEquals(12, actualMultiplicationResult);
-        actualMultiplicationResult = calculator.makeAddition(0, numberForTest);
-        Assertions.assertEquals(numberForTest, actualMultiplicationResult);
-        actualMultiplicationResult = calculator.makeAddition(12.9875, numberForTest);
-        Assertions.assertEquals(18.5875, actualMultiplicationResult);
+        actualMultiplicationResult = calculator.makeAddition(0, firstNumberForTest);
+        Assertions.assertEquals(firstNumberForTest, actualMultiplicationResult);
+    }
+
+    @Test
+    public void testSubtraction() {
+        double actualSubstractionResult = calculator.makeSubtraction(firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(0.5, actualSubstractionResult);
+        actualSubstractionResult = calculator.makeSubtraction(-firstNumberForTest, secondNumberForTest);
+        Assertions.assertEquals(-0.5, actualSubstractionResult);
+        actualSubstractionResult = calculator.makeSubtraction(0, firstNumberForTest);
+        Assertions.assertEquals(0, actualSubstractionResult);
     }
 }
