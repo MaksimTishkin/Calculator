@@ -68,12 +68,19 @@ public class testCalculator {
 
     @Test
     public void testIsNumber() {
-        Assertions.assertTrue(Calculator.isNumber(forIsNumberTestYes));
-        Assertions.assertFalse(Calculator.isNumber(forIsNumberTestNo));
+        Assertions.assertTrue(calculator.isNumber(forIsNumberTestYes));
+        Assertions.assertFalse(calculator.isNumber(forIsNumberTestNo));
     }
 
+    @Test
     public void testIsOperator() {
-        Assertions.assertTrue(Calculator.isOperator("+"));
-        Assertions.assertFalse(Calculator.isOperator("4"));
+        Assertions.assertTrue(calculator.isOperator("+"));
+        Assertions.assertFalse(calculator.isOperator("4"));
+    }
+
+    @Test
+    public void testGetOperatorPriority() {
+        Assertions.assertEquals(1, calculator.getOperatorPriority("-"));
+        Assertions.assertEquals(2, calculator.getOperatorPriority("/"));
     }
 }
