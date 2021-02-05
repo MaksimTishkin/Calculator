@@ -45,12 +45,18 @@ public class testCalculator {
     }
 
     @Test
-    public void testDevision() {
-        double actualDevisionResult = calculator.makeDevision(-firstNumberForTest, secondNumberForTest);
+    public void testDivision() {
+        double actualDevisionResult = calculator.makeDivision(-firstNumberForTest, secondNumberForTest);
         Assertions.assertEquals(-0.5, actualDevisionResult);
-        actualDevisionResult = calculator.makeDevision(firstNumberForTest, secondNumberForTest);
+        actualDevisionResult = calculator.makeDivision(firstNumberForTest, secondNumberForTest);
         Assertions.assertEquals(0.5, actualDevisionResult);
-        actualDevisionResult = calculator.makeDevision(0, firstNumberForTest);
+        actualDevisionResult = calculator.makeDivision(0, firstNumberForTest);
         Assertions.assertEquals(0, actualDevisionResult);
+    }
+
+    @Test
+    public void testSquareRoot() {
+        double actualSquareRoot = calculator.makeSquareRoot(firstNumberForTest);
+        Assertions.assertEquals(2, actualSquareRoot);
     }
 }

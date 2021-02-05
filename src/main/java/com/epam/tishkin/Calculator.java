@@ -14,10 +14,12 @@ public class Calculator {
         return firstSubtrahend - secondSubtrahend;
     }
 
-    Double makeDevision(double divisible, double divider) {
+    Double makeDivision(double divisible, double divider) {
         return divisible / divider;
     }
 
-    public static void main( String[] args ) {
+    Double makeSquareRoot(double number) {
+        double squareRoot = 0.5;
+        return number * squareRoot;
     }
 }
