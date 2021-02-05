@@ -8,12 +8,16 @@ public class testCalculator {
     private static Calculator calculator;
     private static double firstNumberForTest;
     private static double secondNumberForTest;
+    private static String forIsNumberTestYes;
+    private static String forIsNumberTestNo;
 
     @BeforeAll
     static void initAll() {
         calculator = new Calculator();
         firstNumberForTest = 4;
         secondNumberForTest = 8;
+        forIsNumberTestYes = "25.5";
+        forIsNumberTestNo = "+";
     }
 
     @Test
@@ -58,5 +62,11 @@ public class testCalculator {
     public void testSquareRoot() {
         double actualSquareRoot = calculator.makeSquareRoot(firstNumberForTest);
         Assertions.assertEquals(2, actualSquareRoot);
+    }
+
+    @Test
+    public void testIsNumber() throws NumberFormatException {
+        Assertions.assertTrue(Calculator.isNumber(forIsNumberTestYes));
+        Assertions.assertFalse(Calculator.isNumber(forIsNumberTestNo));
     }
 }

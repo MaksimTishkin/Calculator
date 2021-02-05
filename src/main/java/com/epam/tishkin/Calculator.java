@@ -1,5 +1,9 @@
 package com.epam.tishkin;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public class Calculator {
 
     Double makeMultiplication(double  firstMultiplier, double secondMultiplier) {
@@ -21,5 +25,14 @@ public class Calculator {
     Double makeSquareRoot(double number) {
         double squareRoot = 0.5;
         return number * squareRoot;
+    }
+
+    static boolean isNumber(String StringForVerification) {
+        try {
+            double value = Double.parseDouble(StringForVerification);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
