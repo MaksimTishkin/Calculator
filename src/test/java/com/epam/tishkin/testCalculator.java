@@ -10,6 +10,7 @@ public class testCalculator {
     private static double secondNumberForTest;
     private static String forIsNumberTestYes;
     private static String forIsNumberTestNo;
+    private static String operators;
 
     @BeforeAll
     static void initAll() {
@@ -18,6 +19,7 @@ public class testCalculator {
         secondNumberForTest = 8;
         forIsNumberTestYes = "25.5";
         forIsNumberTestNo = "+";
+        operators = "+-/*";
     }
 
     @Test
@@ -65,8 +67,13 @@ public class testCalculator {
     }
 
     @Test
-    public void testIsNumber() throws NumberFormatException {
+    public void testIsNumber() {
         Assertions.assertTrue(Calculator.isNumber(forIsNumberTestYes));
         Assertions.assertFalse(Calculator.isNumber(forIsNumberTestNo));
+    }
+
+    public void testIsOperator() {
+        Assertions.assertTrue(Calculator.isOperator("+"));
+        Assertions.assertFalse(Calculator.isOperator("4"));
     }
 }

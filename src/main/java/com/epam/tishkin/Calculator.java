@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Calculator {
+    private static final String OPERATORS = "+-*/";
 
     Double makeMultiplication(double  firstMultiplier, double secondMultiplier) {
         return firstMultiplier * secondMultiplier;
@@ -27,12 +28,16 @@ public class Calculator {
         return number * squareRoot;
     }
 
-    static boolean isNumber(String StringForVerification) {
+    static boolean isNumber(String stringForVerification) {
         try {
-            double value = Double.parseDouble(StringForVerification);
+            double value = Double.parseDouble(stringForVerification);
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    static boolean isOperator(String stringForVerification) {
+        return OPERATORS.contains(stringForVerification);
     }
 }
