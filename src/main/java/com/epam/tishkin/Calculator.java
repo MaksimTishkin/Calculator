@@ -7,7 +7,7 @@ import java.util.Stack;
 public class Calculator {
     private static final String OPERATORS = "+-*/";
 
-    public Double getCalculationResult(String taskToSolve) {
+    public Double getCalculationResult(String taskToSolve) throws IncorrectSourceDataException {
         Queue<String> sequenceOfOperatorsAndNumbers = parseString(taskToSolve);
         Stack<Double> stackForCalculationResult = new Stack<>();
         for (String current : sequenceOfOperatorsAndNumbers) {
@@ -38,7 +38,7 @@ public class Calculator {
         return stackForCalculationResult.pop();
     }
 
-    Queue<String> parseString(String taskToSolve) {
+    Queue<String> parseString(String taskToSolve) throws IncorrectSourceDataException {
         Queue<String> sequenceOfOperatorsAndNumbers = new LinkedList<>();
         Stack<String> stackForOperators = new Stack<>();
         String[] arrayOperatorsAndNumbers = taskToSolve.split(" ");
@@ -55,6 +55,9 @@ public class Calculator {
                     sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
                 }
                 stackForOperators.add(current);
+            }
+            else {
+                throw new IncorrectSourceDataException("Incorrect data entered - " + current);
             }
         }
         while (!stackForOperators.isEmpty()) {

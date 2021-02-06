@@ -88,7 +88,7 @@ public class testCalculator {
     }
 
     @Test
-    public void testParseString() {
+    public void testParseString() throws IncorrectSourceDataException {
         String inputString = "2 + 3 * sqrt16";
         List<String> parseString = Arrays.asList("2", "3", "4.0", "*", "+");
         Queue<String> expectedQueue = new LinkedList<>(parseString);
@@ -97,7 +97,7 @@ public class testCalculator {
     }
 
     @Test
-    public void testCalculationResult() {
+    public void testCalculationResult() throws IncorrectSourceDataException {
         double expectedCalculationResult = 14;
         double actualCalculationResult = calculator.getCalculationResult("2 + 3 * sqrt16");
         Assertions.assertEquals(expectedCalculationResult, actualCalculationResult);
