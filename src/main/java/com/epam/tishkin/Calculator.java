@@ -1,8 +1,8 @@
 package com.epam.tishkin;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Calculator {
     private static final String OPERATORS = "+-*/";
@@ -54,4 +54,28 @@ public class Calculator {
         return 2;
     }
 
+    Queue<String> parseString(String taskToSolve) {
+        Queue<String> sequenceOfOperatorsAndNumbers = new LinkedList<>();
+        Stack<String> stackForOperators = new Stack<>();
+        String[] arrayOperatorsAndNumbers = taskToSolve.split(" ");
+        for (String current : arrayOperatorsAndNumbers) {
+            if (current.contains("sqrt")) {
+                sequenceOfOperatorsAndNumbers.add(makeSquareRoot(current));
+            }
+            else if (isNumber(current)) {
+                sequenceOfOperatorsAndNumbers.add(current);
+            }
+            else if (isOperator(current)) {
+                while (!stackForOperators.isEmpty()
+                        && getOperatorPriority(current) <= getOperatorPriority(stackForOperators.lastElement())) {
+                    sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
+                }
+                stackForOperators.add(current);
+            }
+        }
+        while (!stackForOperators.isEmpty()) {
+            sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
+        }
+        return sequenceOfOperatorsAndNumbers;
+    }
 }

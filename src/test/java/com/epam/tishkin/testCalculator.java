@@ -4,22 +4,21 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class testCalculator {
     private static Calculator calculator;
     private static double firstNumberForTest;
     private static double secondNumberForTest;
-    private static String forIsNumberTestYes;
-    private static String forIsNumberTestNo;
-    private static String forSquareRootTest;
 
     @BeforeAll
     static void initAll() {
         calculator = new Calculator();
         firstNumberForTest = 4;
         secondNumberForTest = 8;
-        forIsNumberTestYes = "25.5";
-        forIsNumberTestNo = "+";
-        forSquareRootTest = "sqrt64";
     }
 
     @Test
@@ -62,6 +61,7 @@ public class testCalculator {
 
     @Test
     public void testSquareRoot() {
+        String forSquareRootTest = "sqrt64";
         String actualSquareRootOfNumber = calculator.makeSquareRoot(forSquareRootTest);
         String expectedSquareRootOfNumber = "8.0";
         Assertions.assertEquals(expectedSquareRootOfNumber, actualSquareRootOfNumber);
@@ -69,6 +69,8 @@ public class testCalculator {
 
     @Test
     public void testIsNumber() {
+        String forIsNumberTestYes = "25.5";
+        String forIsNumberTestNo = "+";
         Assertions.assertTrue(calculator.isNumber(forIsNumberTestYes));
         Assertions.assertFalse(calculator.isNumber(forIsNumberTestNo));
     }
@@ -85,5 +87,12 @@ public class testCalculator {
         Assertions.assertEquals(2, calculator.getOperatorPriority("/"));
     }
 
-
+    @Test
+    public void testParseString() {
+        String inputString = "2 + 3 * sqrt16";
+        List<String> parseString = Arrays.asList("2", "3", "4.0", "*", "+");
+        Queue<String> expectedQueue = new LinkedList<>(parseString);
+        Queue<String> actualQueue = calculator.parseString(inputString);
+        Assertions.assertEquals(expectedQueue, actualQueue);
+    }
 }
