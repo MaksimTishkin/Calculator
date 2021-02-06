@@ -7,6 +7,62 @@ import java.util.Stack;
 public class Calculator {
     private static final String OPERATORS = "+-*/";
 
+    public Double getCalculationResult(String taskToSolve) {
+        Queue<String> sequenceOfOperatorsAndNumbers = parseString(taskToSolve);
+        Stack<Double> stackForCalculationResult = new Stack<>();
+        for (String current : sequenceOfOperatorsAndNumbers) {
+            if (isNumber(current)) {
+                stackForCalculationResult.add(Double.parseDouble(current));
+            }
+            else if (isOperator(current)) {
+                double intermediateResult = 0;
+                double secondMember = stackForCalculationResult.pop();
+                double firstMember = stackForCalculationResult.pop();
+                switch (current) {
+                    case ("-"):
+                        intermediateResult = makeSubtraction(firstMember, secondMember);
+                        break;
+                    case ("+"):
+                        intermediateResult = makeAddition(firstMember, secondMember);
+                        break;
+                    case ("*"):
+                        intermediateResult = makeMultiplication(firstMember, secondMember);
+                        break;
+                    case ("/"):
+                        intermediateResult = makeDivision(firstMember, secondMember);
+                        break;
+                }
+                stackForCalculationResult.add(intermediateResult);
+            }
+        }
+        return stackForCalculationResult.pop();
+    }
+
+    Queue<String> parseString(String taskToSolve) {
+        Queue<String> sequenceOfOperatorsAndNumbers = new LinkedList<>();
+        Stack<String> stackForOperators = new Stack<>();
+        String[] arrayOperatorsAndNumbers = taskToSolve.split(" ");
+        for (String current : arrayOperatorsAndNumbers) {
+            if (current.contains("sqrt")) {
+                sequenceOfOperatorsAndNumbers.add(makeSquareRoot(current));
+            }
+            else if (isNumber(current)) {
+                sequenceOfOperatorsAndNumbers.add(current);
+            }
+            else if (isOperator(current)) {
+                while (!stackForOperators.isEmpty()
+                        && getOperatorPriority(current) <= getOperatorPriority(stackForOperators.lastElement())) {
+                    sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
+                }
+                stackForOperators.add(current);
+            }
+        }
+        while (!stackForOperators.isEmpty()) {
+            sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
+        }
+        return sequenceOfOperatorsAndNumbers;
+    }
+
     Double makeMultiplication(double  firstMultiplier, double secondMultiplier) {
         return firstMultiplier * secondMultiplier;
     }
@@ -52,61 +108,5 @@ public class Calculator {
             return 1;
         }
         return 2;
-    }
-
-    Queue<String> parseString(String taskToSolve) {
-        Queue<String> sequenceOfOperatorsAndNumbers = new LinkedList<>();
-        Stack<String> stackForOperators = new Stack<>();
-        String[] arrayOperatorsAndNumbers = taskToSolve.split(" ");
-        for (String current : arrayOperatorsAndNumbers) {
-            if (current.contains("sqrt")) {
-                sequenceOfOperatorsAndNumbers.add(makeSquareRoot(current));
-            }
-            else if (isNumber(current)) {
-                sequenceOfOperatorsAndNumbers.add(current);
-            }
-            else if (isOperator(current)) {
-                while (!stackForOperators.isEmpty()
-                        && getOperatorPriority(current) <= getOperatorPriority(stackForOperators.lastElement())) {
-                    sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
-                }
-                stackForOperators.add(current);
-            }
-        }
-        while (!stackForOperators.isEmpty()) {
-            sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
-        }
-        return sequenceOfOperatorsAndNumbers;
-    }
-
-    public Double getCalculationResult(String taskToSolve) {
-        Queue<String> sequenceOfOperatorsAndNumbers = parseString(taskToSolve);
-        Stack<Double> stackForCalculationResult = new Stack<>();
-        for (String current : sequenceOfOperatorsAndNumbers) {
-            if (isNumber(current)) {
-                stackForCalculationResult.add(Double.parseDouble(current));
-            }
-            else if (isOperator(current)) {
-                double intermediateResult = 0;
-                double secondMember = stackForCalculationResult.pop();
-                double firstMember = stackForCalculationResult.pop();
-                switch (current) {
-                    case ("-"):
-                        intermediateResult = makeSubtraction(firstMember, secondMember);
-                        break;
-                    case ("+"):
-                        intermediateResult = makeAddition(firstMember, secondMember);
-                        break;
-                    case ("*"):
-                        intermediateResult = makeMultiplication(firstMember, secondMember);
-                        break;
-                    case ("/"):
-                        intermediateResult = makeDivision(firstMember, secondMember);
-                        break;
-                }
-                stackForCalculationResult.add(intermediateResult);
-            }
-        }
-        return stackForCalculationResult.pop();
     }
 }
