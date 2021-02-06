@@ -23,9 +23,15 @@ public class Calculator {
         return divisible / divider;
     }
 
-    Double makeSquareRoot(double number) {
-        double squareRoot = 0.5;
-        return number * squareRoot;
+    String makeSquareRoot(String numberWithSquareRoot) {
+        double number = 0;
+        try {
+            number = Double.parseDouble(numberWithSquareRoot.substring(4));
+        } catch (NumberFormatException e) {
+            System.out.println("NumberFormatException" + e.getMessage());
+        }
+        number = Math.sqrt(number);
+        return Double.toString(number);
     }
 
     boolean isNumber(String stringForVerification) {

@@ -10,7 +10,7 @@ public class testCalculator {
     private static double secondNumberForTest;
     private static String forIsNumberTestYes;
     private static String forIsNumberTestNo;
-    private static String operators;
+    private static String forSquareRootTest;
 
     @BeforeAll
     static void initAll() {
@@ -19,7 +19,7 @@ public class testCalculator {
         secondNumberForTest = 8;
         forIsNumberTestYes = "25.5";
         forIsNumberTestNo = "+";
-        operators = "+-/*";
+        forSquareRootTest = "sqrt64";
     }
 
     @Test
@@ -62,8 +62,9 @@ public class testCalculator {
 
     @Test
     public void testSquareRoot() {
-        double actualSquareRoot = calculator.makeSquareRoot(firstNumberForTest);
-        Assertions.assertEquals(2, actualSquareRoot);
+        String actualSquareRootOfNumber = calculator.makeSquareRoot(forSquareRootTest);
+        String expectedSquareRootOfNumber = "8.0";
+        Assertions.assertEquals(expectedSquareRootOfNumber, actualSquareRootOfNumber);
     }
 
     @Test
@@ -83,4 +84,6 @@ public class testCalculator {
         Assertions.assertEquals(1, calculator.getOperatorPriority("-"));
         Assertions.assertEquals(2, calculator.getOperatorPriority("/"));
     }
+
+
 }
