@@ -78,4 +78,35 @@ public class Calculator {
         }
         return sequenceOfOperatorsAndNumbers;
     }
+
+    public Double getCalculationResult(String taskToSolve) {
+        Queue<String> sequenceOfOperatorsAndNumbers = parseString(taskToSolve);
+        Stack<Double> stackForCalculationResult = new Stack<>();
+        for (String current : sequenceOfOperatorsAndNumbers) {
+            if (isNumber(current)) {
+                stackForCalculationResult.add(Double.parseDouble(current));
+            }
+            else if (isOperator(current)) {
+                double intermediateResult = 0;
+                double secondMember = stackForCalculationResult.pop();
+                double firstMember = stackForCalculationResult.pop();
+                switch (current) {
+                    case ("-"):
+                        intermediateResult = makeSubtraction(firstMember, secondMember);
+                        break;
+                    case ("+"):
+                        intermediateResult = makeAddition(firstMember, secondMember);
+                        break;
+                    case ("*"):
+                        intermediateResult = makeMultiplication(firstMember, secondMember);
+                        break;
+                    case ("/"):
+                        intermediateResult = makeDivision(firstMember, secondMember);
+                        break;
+                }
+                stackForCalculationResult.add(intermediateResult);
+            }
+        }
+        return stackForCalculationResult.pop();
+    }
 }

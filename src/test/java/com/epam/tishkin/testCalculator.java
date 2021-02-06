@@ -82,7 +82,7 @@ public class testCalculator {
     }
 
     @Test
-    public void testGetOperatorPriority() {
+    public void testOperatorPriority() {
         Assertions.assertEquals(1, calculator.getOperatorPriority("-"));
         Assertions.assertEquals(2, calculator.getOperatorPriority("/"));
     }
@@ -94,5 +94,12 @@ public class testCalculator {
         Queue<String> expectedQueue = new LinkedList<>(parseString);
         Queue<String> actualQueue = calculator.parseString(inputString);
         Assertions.assertEquals(expectedQueue, actualQueue);
+    }
+
+    @Test
+    public void testCalculationResult() {
+        double expectedCalculationResult = 14;
+        double actualCalculationResult = calculator.getCalculationResult("2 + 3 * sqrt16");
+        Assertions.assertEquals(expectedCalculationResult, actualCalculationResult);
     }
 }
