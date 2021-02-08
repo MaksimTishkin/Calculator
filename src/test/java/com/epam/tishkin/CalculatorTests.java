@@ -5,8 +5,8 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
-@SelectClasses(ParseAndCalculationTest.class)
+@SelectClasses(OperatorsAndNumbersVerificationTest.class)
 
-class CalculatorTest {
+class CalculatorTests {
 
 }
