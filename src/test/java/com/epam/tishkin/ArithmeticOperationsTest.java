@@ -19,29 +19,45 @@ public class ArithmeticOperationsTest {
     @Test
     public void testMultiplication() {
         double actualMultiplicationResult = calculator.makeMultiplication(-firstNumberForTest, secondNumberForTest);
-        Assertions.assertEquals(-32, actualMultiplicationResult);
+        double expectedMultiplicationResult = -32;
+        Assertions.assertEquals(expectedMultiplicationResult, actualMultiplicationResult);
+        expectedMultiplicationResult = 32;
         actualMultiplicationResult = calculator.makeMultiplication(firstNumberForTest, secondNumberForTest);
-        Assertions.assertEquals(32, actualMultiplicationResult);
+        Assertions.assertEquals(expectedMultiplicationResult, actualMultiplicationResult);
+        expectedMultiplicationResult = 0;
         actualMultiplicationResult = calculator.makeMultiplication(0, firstNumberForTest);
-        Assertions.assertEquals(0, actualMultiplicationResult);
+        Assertions.assertEquals(expectedMultiplicationResult, actualMultiplicationResult);
+        expectedMultiplicationResult = 32;
+        actualMultiplicationResult = calculator.makeMultiplication(-firstNumberForTest, -secondNumberForTest);
+        Assertions.assertEquals(expectedMultiplicationResult, actualMultiplicationResult);
     }
 
     @Test
     public void testAddition() {
-        double actualMultiplicationResult = calculator.makeAddition(-firstNumberForTest, secondNumberForTest);
-        Assertions.assertEquals(4, actualMultiplicationResult);
-        actualMultiplicationResult = calculator.makeAddition(firstNumberForTest, secondNumberForTest);
-        Assertions.assertEquals(12, actualMultiplicationResult);
-        actualMultiplicationResult = calculator.makeAddition(0, firstNumberForTest);
-        Assertions.assertEquals(firstNumberForTest, actualMultiplicationResult);
+        double actualAdditionResult = calculator.makeAddition(-firstNumberForTest, secondNumberForTest);
+        double expectedAdditionResult = 4;
+        Assertions.assertEquals(expectedAdditionResult, actualAdditionResult);
+        actualAdditionResult = calculator.makeAddition(firstNumberForTest, secondNumberForTest);
+        expectedAdditionResult = 12;
+        Assertions.assertEquals(expectedAdditionResult, actualAdditionResult);
+        actualAdditionResult = calculator.makeAddition(-firstNumberForTest, -secondNumberForTest);
+        expectedAdditionResult = -12;
+        Assertions.assertEquals(expectedAdditionResult, actualAdditionResult);
+        actualAdditionResult = calculator.makeAddition(0, firstNumberForTest);
+        Assertions.assertEquals(firstNumberForTest, actualAdditionResult);
     }
 
     @Test
     public void testSubtraction() {
         double actualSubstractionResult = calculator.makeSubtraction(-firstNumberForTest, secondNumberForTest);
-        Assertions.assertEquals(-12, actualSubstractionResult);
+        double expectedSubtractionResult = -12;
+        Assertions.assertEquals(expectedSubtractionResult, actualSubstractionResult);
         actualSubstractionResult = calculator.makeSubtraction(firstNumberForTest, secondNumberForTest);
-        Assertions.assertEquals(-4, actualSubstractionResult);
+        expectedSubtractionResult = -4;
+        Assertions.assertEquals(expectedSubtractionResult, actualSubstractionResult);
+        actualSubstractionResult = calculator.makeSubtraction(firstNumberForTest, 0);
+        expectedSubtractionResult = 4;
+        Assertions.assertEquals(expectedSubtractionResult, actualSubstractionResult);
     }
 
     @Test
@@ -57,7 +73,7 @@ public class ArithmeticOperationsTest {
     @Test
     public void testSquareRoot() {
         String forSquareRootTest = "sqrt64";
-        String actualSquareRootOfNumber = calculator.makeSquareRoot(forSquareRootTest);
+        String actualSquareRootOfNumber = Calculator.makeSquareRoot(forSquareRootTest);
         String expectedSquareRootOfNumber = "8.0";
         Assertions.assertEquals(expectedSquareRootOfNumber, actualSquareRootOfNumber);
     }

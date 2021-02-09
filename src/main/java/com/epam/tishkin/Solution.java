@@ -1,5 +1,8 @@
 package com.epam.tishkin;
 
+import com.epam.tishkin.exceptions.DivisionByZeroException;
+import com.epam.tishkin.exceptions.IncorrectSourceDataException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +19,7 @@ public class Solution {
         }
         try {
             System.out.println(calculator.getCalculationResult(task));
-        } catch (IncorrectSourceDataException e) {
+        } catch (DivisionByZeroException | IncorrectSourceDataException e) {
             System.out.println(e.getMessage());
         }
     }

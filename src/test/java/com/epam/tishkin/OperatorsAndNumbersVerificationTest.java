@@ -5,30 +5,32 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class OperatorsAndNumbersVerificationTest {
-    private static Calculator calculator;
+    private static ParserString parser;
 
     @BeforeAll
     static void initAll() {
-        calculator = new Calculator();
+        parser = new ParserString();
     }
 
     @Test
     public void testIsNumber() {
-        String forIsNumberTestYes = "25.5";
-        String forIsNumberTestNo = "+";
-        Assertions.assertTrue(calculator.isNumber(forIsNumberTestYes));
-        Assertions.assertFalse(calculator.isNumber(forIsNumberTestNo));
+        String validValue = "25.5";
+        String invalidValue = "+";
+        Assertions.assertTrue(parser.isNumber(validValue));
+        Assertions.assertFalse(parser.isNumber(invalidValue));
     }
 
     @Test
     public void testIsOperator() {
-        Assertions.assertTrue(calculator.isOperator("+"));
-        Assertions.assertFalse(calculator.isOperator("4"));
+        Assertions.assertTrue(parser.isOperator("+"));
+        Assertions.assertFalse(parser.isOperator("4"));
     }
 
     @Test
     public void testOperatorPriority() {
-        Assertions.assertEquals(1, calculator.getOperatorPriority("-"));
-        Assertions.assertEquals(2, calculator.getOperatorPriority("/"));
+        int prioriryForSubtractionAndAddition = 1;
+        int priorityForMultiplicationAndDivision = 2;
+        Assertions.assertEquals(prioriryForSubtractionAndAddition, parser.getOperatorPriority("-"));
+        Assertions.assertEquals(priorityForMultiplicationAndDivision, parser.getOperatorPriority("/"));
     }
 }

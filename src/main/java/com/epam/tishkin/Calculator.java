@@ -1,20 +1,22 @@
 package com.epam.tishkin;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import com.epam.tishkin.exceptions.DivisionByZeroException;
+import com.epam.tishkin.exceptions.IncorrectSourceDataException;
+
+import java.util.List;
 import java.util.Stack;
 
 public class Calculator {
-    private static final String OPERATORS = "+-*/";
+    private final ParserString parser = new ParserString();
 
-    public Double getCalculationResult(String taskToSolve) throws IncorrectSourceDataException {
-        Queue<String> sequenceOfOperatorsAndNumbers = parseString(taskToSolve);
+    public Double getCalculationResult(String taskToSolve) throws DivisionByZeroException, IncorrectSourceDataException {
+        List<String> listOfOperatorsAndNumbers = parser.parseString(taskToSolve);
         Stack<Double> stackForCalculationResult = new Stack<>();
-        for (String current : sequenceOfOperatorsAndNumbers) {
-            if (isNumber(current)) {
+        for (String current : listOfOperatorsAndNumbers) {
+            if (parser.isNumber(current)) {
                 stackForCalculationResult.add(Double.parseDouble(current));
             }
-            else if (isOperator(current)) {
+            else if (parser.isOperator(current)) {
                 double intermediateResult = 0;
                 double secondMember = stackForCalculationResult.pop();
                 double firstMember = stackForCalculationResult.pop();
@@ -29,6 +31,9 @@ public class Calculator {
                         intermediateResult = makeMultiplication(firstMember, secondMember);
                         break;
                     case ("/"):
+                        if (secondMember == 0) {
+                            throw new DivisionByZeroException("You can't divide by zero!");
+                        }
                         intermediateResult = makeDivision(firstMember, secondMember);
                         break;
                 }
@@ -36,34 +41,6 @@ public class Calculator {
             }
         }
         return stackForCalculationResult.pop();
-    }
-
-    Queue<String> parseString(String taskToSolve) throws IncorrectSourceDataException {
-        Queue<String> sequenceOfOperatorsAndNumbers = new LinkedList<>();
-        Stack<String> stackForOperators = new Stack<>();
-        String[] arrayOperatorsAndNumbers = taskToSolve.split(" ");
-        for (String current : arrayOperatorsAndNumbers) {
-            if (current.contains("sqrt")) {
-                sequenceOfOperatorsAndNumbers.add(makeSquareRoot(current));
-            }
-            else if (isNumber(current)) {
-                sequenceOfOperatorsAndNumbers.add(current);
-            }
-            else if (isOperator(current)) {
-                while (!stackForOperators.isEmpty()
-                        && getOperatorPriority(current) <= getOperatorPriority(stackForOperators.lastElement())) {
-                    sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
-                }
-                stackForOperators.add(current);
-            }
-            else {
-                throw new IncorrectSourceDataException("Incorrect data entered - " + current);
-            }
-        }
-        while (!stackForOperators.isEmpty()) {
-            sequenceOfOperatorsAndNumbers.add(stackForOperators.pop());
-        }
-        return sequenceOfOperatorsAndNumbers;
     }
 
     Double makeMultiplication(double  firstMultiplier, double secondMultiplier) {
@@ -82,7 +59,7 @@ public class Calculator {
         return divisible / divider;
     }
 
-    String makeSquareRoot(String numberWithSquareRoot) {
+    static String makeSquareRoot(String numberWithSquareRoot) {
         double number = 0;
         try {
             number = Double.parseDouble(numberWithSquareRoot.substring(4));
@@ -91,25 +68,5 @@ public class Calculator {
         }
         number = Math.sqrt(number);
         return Double.toString(number);
-    }
-
-    boolean isNumber(String stringForVerification) {
-        try {
-            double value = Double.parseDouble(stringForVerification);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    boolean isOperator(String stringForVerification) {
-        return OPERATORS.contains(stringForVerification);
-    }
-
-    int getOperatorPriority(String operation) {
-        if (operation.equals("-") || operation.equals("+")) {
-            return 1;
-        }
-        return 2;
     }
 }
